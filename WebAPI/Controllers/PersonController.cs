@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using aspnet_crud.Models;
-using aspnet_crud.Repository;
+using WebAPI.Models;
+using WebAPI.Repository;
 using System.Text.Json;
 
 namespace WebAPI.Controllers
@@ -16,6 +16,25 @@ namespace WebAPI.Controllers
             try
             {
                 List<Person> people = new PersonRepository().SelectPeople();
+                return Ok(people);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    Result = "Error",
+                    Message = ex.Message
+                });
+            }
+        }
+
+        // Request: (GET) api/person/{id}
+        [Route("{id}"), HttpGet]
+        public IActionResult Get([FromRoute] int? id = null)
+        {
+            try
+            {
+                List<Person> people = new PersonRepository().SelectPeople(id);
                 return Ok(people);
             }
             catch (Exception ex)
@@ -61,9 +80,9 @@ namespace WebAPI.Controllers
             }
         }
 
-        // Request: (PUT) api/person
+        // Request: (PUT) api/person/{id}
         [Route("{id}"), HttpPut]
-        public IActionResult Put(int id, [FromBody] JsonElement body)
+        public IActionResult Put([FromRoute] int id, [FromBody] JsonElement body)
         {
             try
             {
@@ -99,7 +118,7 @@ namespace WebAPI.Controllers
 
         // Request: (DELETE) api/person/{id}
         [Route("{id}"), HttpDelete]
-        public IActionResult Delete(int id)
+        public IActionResult Delete([FromRoute] int id)
         {
             try
             {

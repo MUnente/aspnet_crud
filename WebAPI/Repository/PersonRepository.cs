@@ -1,45 +1,43 @@
-using aspnet_crud.Models;
+using WebAPI.Models;
+using System.Data;
 using Microsoft.Data.SqlClient;
 
-namespace aspnet_crud.Repository
+namespace WebAPI.Repository
 {
     public class PersonRepository
     {
-        public List<Person> SelectPeople()
+        public List<Person> SelectPeople(int? id = null)
         {
             List<Person> people = new();
-            string query = "SELECT * FROM person";
+            string query = "SELECT * FROM person WHERE id = COALESCE(@id, id)";
 
             using (SqlConnection conn = new(Connection.ConnectionString))
             {
+                SqlCommand cmd = new(query, conn);
+
+                cmd.Parameters.AddWithValue("@id", (object)id ?? DBNull.Value);
+
                 conn.Open();
 
-                using (SqlCommand cmd = new())
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
                 {
-                    cmd.Connection = conn;
-                    cmd.CommandType = System.Data.CommandType.Text;
-                    cmd.CommandText = query;
-
-                    SqlDataReader reader = cmd.ExecuteReader();
-
-                    while (reader.Read())
+                    Person person = new()
                     {
-                        Person person = new()
-                        {
-                            Id = reader.GetInt32(0),
-                            Username = reader.GetString(1),
-                            Fullname = reader.GetString(2),
-                            Fulldate = reader.GetString(3),
-                            Active = reader.GetBoolean(4),
-                            Country = reader.GetString(5),
-                            Role = new RoleRepository().SelectRoles(reader.GetInt32(6)).FirstOrDefault()
-                        };
+                        Id = reader.GetInt32(0),
+                        Username = reader.GetString(1),
+                        Fullname = reader.GetString(2),
+                        Fulldate = reader.GetString(3),
+                        Active = reader.GetBoolean(4),
+                        Country = reader.GetString(5),
+                        Role = new RoleRepository().SelectRoles(reader.GetInt32(6)).FirstOrDefault()
+                    };
 
-                        people.Add(person);
-                    }
-
-                    return people;
+                    people.Add(person);
                 }
+
+                return people;
             }
         }
 
@@ -65,31 +63,26 @@ namespace aspnet_crud.Repository
 
             using (SqlConnection conn = new(Connection.ConnectionString))
             {
+                SqlCommand cmd = new(query, conn);
+
+                cmd.Parameters.AddWithValue("@username", person.Username);
+                cmd.Parameters.AddWithValue("@fullname", person.Fullname);
+                cmd.Parameters.AddWithValue("@fulldate", person.Fulldate);
+                cmd.Parameters.AddWithValue("@active", person.Active);
+                cmd.Parameters.AddWithValue("@country", person.Country);
+                cmd.Parameters.AddWithValue("@roleId", person.Role?.Id);
+
                 conn.Open();
 
-                using (SqlCommand cmd = new())
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
                 {
-                    cmd.Connection = conn;
-                    cmd.CommandType = System.Data.CommandType.Text;
-                    cmd.CommandText = query;
-
-                    cmd.Parameters.AddWithValue("@username", person.Username);
-                    cmd.Parameters.AddWithValue("@fullname", person.Fullname);
-                    cmd.Parameters.AddWithValue("@fulldate", person.Fulldate);
-                    cmd.Parameters.AddWithValue("@active", person.Active);
-                    cmd.Parameters.AddWithValue("@country", person.Country);
-                    cmd.Parameters.AddWithValue("@roleId", person.Role?.Id);
-
-                    SqlDataReader reader = cmd.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        person.Id = reader.GetInt32(0);
-                        person.Role = new RoleRepository().SelectRoles(person.Role?.Id).FirstOrDefault();
-                    }
-
-                    return person;
+                    person.Id = reader.GetInt32(0);
+                    person.Role = new RoleRepository().SelectRoles(person.Role?.Id).FirstOrDefault();
                 }
+
+                return person;
             }
         }
 
@@ -108,37 +101,32 @@ namespace aspnet_crud.Repository
 
             using (SqlConnection conn = new(Connection.ConnectionString))
             {
+                SqlCommand cmd = new(query, conn);
+
+                cmd.Parameters.AddWithValue("@username", person.Username);
+                cmd.Parameters.AddWithValue("@fullname", person.Fullname);
+                cmd.Parameters.AddWithValue("@fulldate", person.Fulldate);
+                cmd.Parameters.AddWithValue("@active", person.Active);
+                cmd.Parameters.AddWithValue("@country", person.Country);
+                cmd.Parameters.AddWithValue("@roleId", person.Role?.Id);
+                cmd.Parameters.AddWithValue("@id", person.Id);
+
                 conn.Open();
 
-                using (SqlCommand cmd = new())
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
                 {
-                    cmd.Connection = conn;
-                    cmd.CommandType = System.Data.CommandType.Text;
-                    cmd.CommandText = query;
-
-                    cmd.Parameters.AddWithValue("@username", person.Username);
-                    cmd.Parameters.AddWithValue("@fullname", person.Fullname);
-                    cmd.Parameters.AddWithValue("@fulldate", person.Fulldate);
-                    cmd.Parameters.AddWithValue("@active", person.Active);
-                    cmd.Parameters.AddWithValue("@country", person.Country);
-                    cmd.Parameters.AddWithValue("@roleId", person.Role?.Id);
-                    cmd.Parameters.AddWithValue("@id", person.Id);
-
-                    SqlDataReader reader = cmd.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        person.Id = reader.GetInt32(0);
-                        person.Username = reader.GetString(1);
-                        person.Fulldate = reader.GetString(2);
-                        person.Fulldate = reader.GetString(3);
-                        person.Active = reader.GetBoolean(4);
-                        person.Country = reader.GetString(5);
-                        person.Role = new RoleRepository().SelectRoles(reader.GetInt32(6)).FirstOrDefault();
-                    }
-
-                    return person;
+                    person.Id = reader.GetInt32(0);
+                    person.Username = reader.GetString(1);
+                    person.Fulldate = reader.GetString(2);
+                    person.Fulldate = reader.GetString(3);
+                    person.Active = reader.GetBoolean(4);
+                    person.Country = reader.GetString(5);
+                    person.Role = new RoleRepository().SelectRoles(reader.GetInt32(6)).FirstOrDefault();
                 }
+
+                return person;
             }
         }
 
@@ -148,18 +136,13 @@ namespace aspnet_crud.Repository
 
             using (SqlConnection conn = new(Connection.ConnectionString))
             {
+                SqlCommand cmd = new(query, conn);
+
+                cmd.Parameters.AddWithValue("@id", id);
+
                 conn.Open();
 
-                using (SqlCommand cmd = new())
-                {
-                    cmd.Connection = conn;
-                    cmd.CommandType = System.Data.CommandType.Text;
-                    cmd.CommandText = query;
-
-                    cmd.Parameters.AddWithValue("@id", id);
-
-                    return cmd.ExecuteNonQuery() > 0 ? true : false;
-                }
+                return cmd.ExecuteNonQuery() > 0 ? true : false;
             }
         }
     }

@@ -1,7 +1,7 @@
 using Microsoft.Data.SqlClient;
-using aspnet_crud.Models;
+using WebAPI.Models;
 
-namespace aspnet_crud.Repository
+namespace WebAPI.Repository
 {
     public class RoleRepository
     {
@@ -14,29 +14,24 @@ namespace aspnet_crud.Repository
 
             using (SqlConnection conn = new(Connection.ConnectionString))
             {
+                SqlCommand cmd = new(query, conn);
+
                 conn.Open();
-                
-                using (SqlCommand cmd = new())
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
                 {
-                    cmd.Connection = conn;
-                    cmd.CommandType = System.Data.CommandType.Text;
-                    cmd.CommandText = query;
-
-                    SqlDataReader reader = cmd.ExecuteReader();
-
-                    while (reader.Read())
+                    Role role = new()
                     {
-                        Role role = new()
-                        {
-                            Id = reader.GetInt32(0),
-                            Description = reader.GetString(1)
-                        };
+                        Id = reader.GetInt32(0),
+                        Description = reader.GetString(1)
+                    };
 
-                        roles.Add(role);
-                    }
-
-                    return roles;
+                    roles.Add(role);
                 }
+
+                return roles;
             }
         }
     }

@@ -1,4 +1,4 @@
-namespace aspnet_crud.Models
+namespace WebAPI.Models
 {
     public class Person
     {

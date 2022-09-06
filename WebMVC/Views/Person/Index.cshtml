@@ -1,0 +1,62 @@
+﻿@using WebMVC.Models
+@model IEnumerable<WebMVC.Models.Person>
+@{
+    ViewData["Title"] = "ASP.NET Crud";
+}
+
+<section class="text-center">
+    <h1 class="display-4">Hello, World!</h1>
+    <p>Created by: <a href="https://www.linkedin.com/in/murilo-manente/">Murilo dos Santos Manente</a>.</p>
+</section>
+
+<section class="d-flex justify-content-between mb-3">
+    <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("FormPerson", "Person")'">Add Record</button>
+
+    <div class="input-group w-50">
+        <input type="text" class="form-control" placeholder="Search" aria-label="Search" />
+        <select class="form-select" aria-label="Select an option to filter">
+            <option value="1">ID</option>
+            <option value="2" selected>Username</option>
+            <option value="3">Fullname</option>
+            <option value="4">Date</option>
+        </select>
+        <button type="button" class="btn btn-success">Ok</button>
+    </div>
+</section>
+
+<section class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Username</th>
+                <th scope="col">Fullname</th>
+                <th scope="col">Date</th>
+                <th scope="col">&nbsp;</th>
+                <th scope="col">&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                @foreach (Person person in Model)
+                {
+                    <tr>
+                        <td>@person.Id</td>
+                        <td>@person.Username</td>
+                        <td>@person.Fullname</td>
+                        <td>@person.Fulldate</td>
+                        <td class="text-center"><button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("FormPerson", "Person", new { id = person.Id })'">Edit</button></td>
+                        <td class="text-center"><button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("DeletePerson", "Person", new { id = person.Id })'">Delete</button></td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td>Empty List</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</section>

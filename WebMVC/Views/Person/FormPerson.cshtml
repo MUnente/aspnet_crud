@@ -1,0 +1,62 @@
+@model WebMVC.Models.Person 
+@{
+    ViewData["Title"] = "Add/Update Person";
+}
+
+<form method="POST" class="mt-5">
+    <div class="d-flex mb-4">
+        <button type="submit" class="btn btn-success">Save</button>
+        <button type="button" class="btn btn-danger ms-3" onclick="location.href='@Url.Action("Index", "Person")'">Cancel</button>
+    </div>
+
+    <div class="row mb-3">
+        <label for="Id" class="col-sm-2 col-form-label">ID</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="txtId" name="Id" value="@Model.Id" disabled />
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="Username" class="col-sm-2 col-form-label">Username</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="txtUsername" name="Username" value="@Model.Username" />
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="Fullname" class="col-sm-2 col-form-label">Fullname</label>
+        <div class="col-sm-10">
+            <textarea class="form-control" id="txtFullname" name="Fullname">@Model.Fullname</textarea>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="Fulldate" class="col-sm-2 col-form-label">Date</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="txtFulldate" name="Fulldate" value="@Model.Fulldate" maxlength="9" />
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-sm-10 offset-sm-2">
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="txtActive" name="Active" @(Model.Active ? "checked" : "") />
+                <label for="Active" class="form-check-label">Active</label>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="Country" class="col-sm-2 col-form-label">Country</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="txtCountry" name="Country" value="@Model.Country" />
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="Role.Id" class="col-sm-2 col-form-label">Role</label>
+        <div class="col-sm-10">
+            <select class="form-select" name="Role.Id" aria-label="Choose...">
+                <option value="1" @(Model.Role.Id == 1 ? "selected" : "")>Admin</option>
+                <option value="2" @(Model.Role.Id == 2 ? "selected" : "")>Customer</option>
+                <option value="3" @(Model.Role.Id == 3 ? "selected" : "")>Developer</option>
+            </select>
+        </div>
+    </div>
+</form>
+
+<script></script>

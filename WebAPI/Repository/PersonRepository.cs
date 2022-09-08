@@ -6,16 +6,26 @@ namespace WebAPI.Repository
 {
     public class PersonRepository
     {
-        public List<Person> SelectPeople(int? id = null)
+        public List<Person> SelectPeople(int? id = null, string? filterType = null, string? filterValue = null, int? page = null)
         {
             List<Person> people = new();
             string query = "SELECT * FROM person WHERE id = COALESCE(@id, id)";
 
             using (SqlConnection conn = new(Connection.ConnectionString))
             {
-                SqlCommand cmd = new(query, conn);
+                SqlCommand cmd = new();
 
                 cmd.Parameters.AddWithValue("@id", (object)id ?? DBNull.Value);
+
+                if (!String.IsNullOrEmpty(filterType) && !String.IsNullOrEmpty(filterValue))
+                {
+                    query += $" AND {filterType} = @filterValue";
+                    cmd.Parameters.AddWithValue("@filterValue", filterType == "id" ? Convert.ToInt32(filterValue) : filterValue.ToString());
+                }
+
+                cmd.Connection = conn;
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = query;
 
                 conn.Open();
 

@@ -6,22 +6,22 @@
 
 <section class="text-center">
     <h1 class="display-4">Hello, World!</h1>
-    <p>Created by: <a href="https://www.linkedin.com/in/murilo-manente/">Murilo dos Santos Manente</a>.</p>
+    <p>Created by: <a href="https://www.linkedin.com/in/murilo-manente/" target="_blank">Murilo dos Santos Manente</a>.</p>
 </section>
 
 <section class="d-flex justify-content-between mb-3">
     <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("FormPerson", "Person")'">Add Record</button>
 
-    <div class="input-group w-50">
-        <input type="text" class="form-control" placeholder="Search" aria-label="Search" />
-        <select class="form-select" aria-label="Select an option to filter">
+    <form method="get" action="@Url.Action("Index", "Person")" class="input-group w-50">
+        <input type="text" class="form-control" name="filterValue" placeholder="Search" aria-label="Search" />
+        <select class="form-select" name="filterType" aria-label="Select an option to filter">
             <option value="1">ID</option>
             <option value="2" selected>Username</option>
             <option value="3">Fullname</option>
             <option value="4">Date</option>
         </select>
-        <button type="button" class="btn btn-success">Ok</button>
-    </div>
+        <button type="submit" class="btn btn-success">Ok</button>
+    </form>
 </section>
 
 <section class="table-responsive">

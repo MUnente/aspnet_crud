@@ -11,30 +11,37 @@ namespace WebAPI.Controllers
     {
         // Request: (GET) api/person
         [Route(""), HttpGet]
-        public IActionResult Get()
+        public IActionResult Get([FromQuery] int? id = null, [FromQuery] int? filterType = null, [FromQuery] string? filterValue = null, [FromQuery] int? page = null)
         {
             try
             {
-                List<Person> people = new PersonRepository().SelectPeople();
-                return Ok(people);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new
-                {
-                    Result = "Error",
-                    Message = ex.Message
-                });
-            }
-        }
+                string? filterDescription = null;
 
-        // Request: (GET) api/person/{id}
-        [Route("{id}"), HttpGet]
-        public IActionResult Get([FromRoute] int? id = null)
-        {
-            try
-            {
-                List<Person> people = new PersonRepository().SelectPeople(id);
+                if (filterType != null)
+                {
+                    if (String.IsNullOrEmpty(filterValue))
+                        throw new Exception("Valor para filtragem não informado.");
+
+                    switch (filterType)
+                    {
+                        case (int)EFilterType.Id:
+                            filterDescription = EFilterType.Id.ToString();
+                            break;
+                        case (int)EFilterType.Username:
+                            filterDescription = EFilterType.Username.ToString();
+                            break;
+                        case (int)EFilterType.Fullname:
+                            filterDescription = EFilterType.Fullname.ToString();
+                            break;
+                        case (int)EFilterType.Fulldate:
+                            filterDescription = EFilterType.Fulldate.ToString();
+                            break;
+                        default:
+                            throw new Exception("Tipo de filtragem inexistente.");
+                    }
+                }
+
+                List<Person> people = new PersonRepository().SelectPeople(id, filterDescription, filterValue);
                 return Ok(people);
             }
             catch (Exception ex)

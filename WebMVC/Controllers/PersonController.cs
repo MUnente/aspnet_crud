@@ -8,7 +8,7 @@ namespace WebMVC.Controllers
 {
     public class PersonController : Controller
     {
-        public async Task<IActionResult> Index([FromRoute] int? page = null)
+        public async Task<IActionResult> Index([FromQuery] string? filterType = null, [FromQuery] string? filterValue = null, [FromQuery] int? page = null)
         {
             try
             {
@@ -16,11 +16,15 @@ namespace WebMVC.Controllers
                 HttpRequestMessage request = new();
                 HttpResponseMessage response = new();
                 string peopleJson;
+                UriBuilder requestUriBuilder = new($"{Api.URLApi}/person");
+
+                if (!String.IsNullOrEmpty(filterType) && !String.IsNullOrEmpty(filterValue))
+                    requestUriBuilder.Query = $"{requestUriBuilder.Query}?filterType={filterType}&filterValue={filterValue}";
 
                 using (HttpClient client = new())
                 {
                     request.Method = HttpMethod.Get;
-                    request.RequestUri = new Uri($"{Api.URLApi}/person");
+                    request.RequestUri = requestUriBuilder.Uri;
 
                     response = await client.SendAsync(request);
                     response.EnsureSuccessStatusCode();

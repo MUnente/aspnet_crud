@@ -9,9 +9,9 @@ namespace WebAPI.Controllers
     [Route("api/[controller]")]
     public class PersonController : ControllerBase
     {
-        // Request: (GET) api/person
+        // Request: (GET) api/person?id={id}&filterType={filterType}&filterValue={filterValue}
         [Route(""), HttpGet]
-        public IActionResult Get([FromQuery] int? id = null, [FromQuery] int? filterType = null, [FromQuery] string? filterValue = null, [FromQuery] int? page = null)
+        public IActionResult Get([FromQuery] int? id = null, [FromQuery] int? filterType = null, [FromQuery] string? filterValue = null)
         {
             try
             {

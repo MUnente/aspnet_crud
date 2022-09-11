@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "dUQ4GO7WIqdfF6gTPHZAtIcWTPZ/zVaPtEJY9ABak5AUYxKm74SoAhdrPeaROajgkALnOSkKtNJ7J/53R4YRgg==",
+  "dgSpecHash": "4Jq1p27iLpyvkg350nlAsrMhaFRcTWjEXTpxy2Oyevu/UR26+USLX1XhMGThFmKuud5Rzky1TFoZ0eOOR2dXow==",
   "success": true,
   "projectFilePath": "/home/murilo/Documents/codiguin/projects/dotnet/aspnet_crud/WebMVC/WebMVC.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "/home/murilo/.nuget/packages/jetbrains.annotations/2022.1.0/jetbrains.annotations.2022.1.0.nupkg.sha512",
+    "/home/murilo/.nuget/packages/x.pagedlist/8.4.3/x.pagedlist.8.4.3.nupkg.sha512",
+    "/home/murilo/.nuget/packages/x.pagedlist.mvc.core/8.4.3/x.pagedlist.mvc.core.8.4.3.nupkg.sha512"
+  ],
   "logs": []
 }

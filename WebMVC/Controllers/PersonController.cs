@@ -3,12 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using System.Text;
 using System.Text.Json;
 using WebMVC.Models;
+using X.PagedList;
 
 namespace WebMVC.Controllers
 {
     public class PersonController : Controller
     {
-        public async Task<IActionResult> Index([FromQuery] string? filterType = null, [FromQuery] string? filterValue = null, [FromQuery] int? page = null)
+        public async Task<IActionResult> Index([FromQuery] string? filterType = null, [FromQuery] string? filterValue = null, [FromQuery] int? pageNumber = 1)
         {
             try
             {
@@ -16,6 +17,7 @@ namespace WebMVC.Controllers
                 HttpRequestMessage request = new();
                 HttpResponseMessage response = new();
                 string peopleJson;
+                int pageSize = 5;
                 UriBuilder requestUriBuilder = new($"{Api.URLApi}/person");
 
                 if (!String.IsNullOrEmpty(filterType) && !String.IsNullOrEmpty(filterValue))
@@ -33,7 +35,9 @@ namespace WebMVC.Controllers
 
                 people = JsonSerializer.Deserialize<List<Person>>(peopleJson);
 
-                return View(people);
+                pageNumber = pageNumber ?? 1;
+
+                return View(people.ToPagedList((int)pageNumber, pageSize));
             }
             catch (HttpRequestException ex)
             {
@@ -53,11 +57,14 @@ namespace WebMVC.Controllers
                     HttpRequestMessage request = new();
                     HttpResponseMessage response = new();
                     string personJson;
+                    UriBuilder requestUriBuilder = new($"{Api.URLApi}/person");
+
+                    requestUriBuilder.Query = $"{requestUriBuilder.Query}?id={id}";
 
                     using (HttpClient client = new())
                     {
                         request.Method = HttpMethod.Get;
-                        request.RequestUri = new Uri($"{Api.URLApi}/person/{id}");
+                        request.RequestUri = requestUriBuilder.Uri;
 
                         response = await client.SendAsync(request);
                         response.EnsureSuccessStatusCode();

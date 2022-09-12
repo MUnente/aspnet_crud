@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using WebMVC.Models;
 using X.PagedList;
 
@@ -91,22 +92,37 @@ namespace WebMVC.Controllers
                 HttpRequestMessage request = new();
                 HttpResponseMessage response = new();
 
-                using (HttpClient client = new())
+                if (ModelState.IsValid)
                 {
-                    if (person.Id != null)
+                    if (Regex.IsMatch(person.Fulldate, @"\d{4}\-\d{4}"))
                     {
-                        request.Method = HttpMethod.Put;
-                        request.RequestUri = new Uri($"{Api.URLApi}/person/{person.Id}");
+                        using (HttpClient client = new())
+                        {
+                            if (person.Id != null)
+                            {
+                                request.Method = HttpMethod.Put;
+                                request.RequestUri = new Uri($"{Api.URLApi}/person/{person.Id}");
+                            }
+                            else
+                            {
+                                request.Method = HttpMethod.Post;
+                                request.RequestUri = new Uri($"{Api.URLApi}/person");
+                            }
+                            request.Content = new StringContent(JsonSerializer.Serialize(person), Encoding.UTF8, "application/json");
+
+                            response = await client.SendAsync(request);
+                            response.EnsureSuccessStatusCode();
+                        }
                     }
                     else
                     {
-                        request.Method = HttpMethod.Post;
-                        request.RequestUri = new Uri($"{Api.URLApi}/person");
+                        ModelState.AddModelError("Fulldate", "The Fulldate field is unformatted.");
+                        return View("~/Views/Person/FormPerson.cshtml", person);
                     }
-                    request.Content = new StringContent(JsonSerializer.Serialize(person), Encoding.UTF8, "application/json");
-
-                    response = await client.SendAsync(request);
-                    response.EnsureSuccessStatusCode();
+                }
+                else
+                {
+                    return View("~/Views/Person/FormPerson.cshtml", person);
                 }
 
                 return RedirectToAction("Index", "Person");

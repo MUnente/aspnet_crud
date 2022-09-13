@@ -11,10 +11,10 @@
     <p>Created by: <a href="https://www.linkedin.com/in/murilo-manente/" target="_blank">Murilo dos Santos Manente</a>.</p>
 </section>
 
-<section class="d-flex justify-content-between mb-3">
-    <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("FormPerson", "Person")'">Add Record</button>
+<section class="row justify-content-between mb-3" style="--bs-gutter-x: 0;">
+    <button type="button" class="btn btn-success col-sm-2 mb-2" onclick="location.href='@Url.Action("FormPerson", "Person")'">Add Record</button>
 
-    <form method="get" action="@Url.Action("Index", "Person")" class="input-group w-50">
+    <form method="get" action="@Url.Action("Index", "Person")" class="input-group col-sm-12">
         <input type="text" class="form-control" name="filterValue" placeholder="Search" aria-label="Search" />
         <select class="form-select" name="filterType" aria-label="Select an option to filter">
             <option value="1">ID</option>
@@ -48,8 +48,8 @@
                         <td class="align-middle">@person.Username</td>
                         <td class="align-middle">@person.Fullname</td>
                         <td class="align-middle">@person.Fulldate</td>
-                        <td class="text-center"><button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("FormPerson", "Person", new { id = person.Id })'">Edit</button></td>
-                        <td class="text-center"><button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("DeletePerson", "Person", new { id = person.Id })'">Delete</button></td>
+                        <td class="align-middle text-center"><button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("FormPerson", "Person", new { id = person.Id })'">Edit</button></td>
+                        <td class="align-middle text-center"><button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("DeletePerson", "Person", new { id = person.Id })'">Delete</button></td>
                     </tr>
                 }
             }

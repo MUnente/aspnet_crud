@@ -8,6 +8,6 @@ As principais tecnologias utilizadas neste projeto foram:
 
 * ASP.NET MVC
 * ASP.NET Web API
-* Boostrap
+* Bootstrap
 * X.PagedList
 * SQL Server (RDS Instance)

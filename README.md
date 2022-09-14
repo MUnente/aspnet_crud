@@ -35,6 +35,12 @@ O projeto ele é dividido em duas pastas principais: WebAPI e o WebMVC. Ambos s�
 * Com o projeto MVC em execução, vá no seu navegador e informe a URL: `https://localhost:7173/`;
 * Pronto! O projeto estará rodando por completo;
 
+### Exemplo de Uso
+
+Abaixo está um gif mostrando o uso do sistema.
+
+![App](./.github/usage_example.gif)
+
 ## Observações
 
 O projeto WebAPI já vem incluso com uma documentação swagger para utilização da API. Para ver a documentação, certifique-se de que o projeto WebAPI esteja em execução. Logo em seguida acesse a URL: `https://localhost:7296/swagger`.

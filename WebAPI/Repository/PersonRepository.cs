@@ -6,7 +6,7 @@ namespace WebAPI.Repository
 {
     public class PersonRepository
     {
-        public List<Person> SelectPeople(int? id = null, string? filterType = null, string? filterValue = null, int? page = null)
+        public List<Person> SelectPeople(int? id = null, string? filterType = null, string? filterValue = null)
         {
             List<Person> people = new();
             string query = "SELECT * FROM person WHERE id = COALESCE(@id, id)";

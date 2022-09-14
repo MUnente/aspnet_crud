@@ -39,4 +39,4 @@ O projeto ele é dividido em duas pastas principais: WebAPI e o WebMVC. Ambos s�
 
 O projeto WebAPI já vem incluso com uma documentação swagger para utilização da API. Para ver a documentação, certifique-se de que o projeto WebAPI esteja em execução. Logo em seguida acesse a URL: `https://localhost:7296/swagger`.
 
-Para saber como está estruturado o banco de dados, deixei o arquivo com os comandos que executei para criação da database dentro do diretório `./.github/database.sql`.
+Para saber como está estruturado o banco de dados, deixei o arquivo com os comandos que executei para criação da database dentro do diretório `./.github/database.sql`. Lembrando que este arquivo não está sendo utilizado no projeto, apenas para melhor compreensão dele.

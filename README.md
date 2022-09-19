@@ -25,7 +25,7 @@ Caso não tenha instalado, recomendo dar uma olhada na documentação feita pela
 
 Assim que o Runtime e o SDK estiverem instalados, faça um clone do repositório em seu ambiente local.
 
-O projeto ele é dividido em duas pastas principais: WebAPI e o WebMVC. Ambos são projetos separados com configurações próprias, mas que se comunicam através de rotas (como um microservice).
+O projeto é dividido em duas pastas principais: WebAPI e o WebMVC. Ambos são projetos separados com configurações próprias, mas que se comunicam através de rotas (como um microservice).
 
 ### Execução
 
@@ -46,3 +46,19 @@ Abaixo está um gif mostrando o uso do sistema.
 O projeto WebAPI já vem incluso com uma documentação swagger para utilização da API. Para ver a documentação, certifique-se de que o projeto WebAPI esteja em execução. Logo em seguida acesse a URL: `https://localhost:7296/swagger`.
 
 Para saber como está estruturado o banco de dados, deixei o arquivo com os comandos que executei para criação da database dentro do diretório `./.github/database.sql`. Lembrando que este arquivo não está sendo utilizado no projeto, apenas para melhor compreensão dele.
+
+Caso você esteja tendo erro com certificado SSL no projeto, será necessário executar alguns comandos para ativar o certificado SSL para desenvolvimento:
+
+* No Windows:
+```
+dotnet dev-certs https --trust
+```
+
+* No Linux (Distros baseadas no Ubuntu):
+```
+dotnet dev-certs https
+sudo -E dotnet dev-certs https -ep /usr/local/share/ca-certificates/aspnet/https.crt --format PEM
+sudo update-ca-certificates
+```
+
+Se você estiver utilizando outro sistema operacional, veja a [documentação da Microsoft](https://learn.microsoft.com/en-us/aspnet/core/security/enforcing-ssl?view=aspnetcore-6.0&tabs=netcore-cli#trust-the-aspnet-core-https-development-certificate-on-windows-and-macos) que ensina como ativar o certificado.

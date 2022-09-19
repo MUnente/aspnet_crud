@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "EMjEirtKsfFSaxXVSAf915DDLd7cBV10mWAaxm9z8mK+3VQX+FJXDU6aD/Ddj/LSgTddF3kGiGnZr4G9v3aA3Q==",
+  "dgSpecHash": "Xq5cIMlmMLbcULN1+SkFINaTEB7MP8hOSWLornQK/du8Mw1CNdOkRaOLkjAFuqQTHJ0CMWj9DrcThrF50l0IxA==",
   "success": true,
   "projectFilePath": "/home/murilo/Documents/codiguin/projects/dotnet/aspnet_crud/WebAPI/WebAPI.csproj",
   "expectedPackageFiles": [

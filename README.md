@@ -40,7 +40,7 @@ Para questão do banco de dados, antes estive utilizando uma Instância RDS, por
 * Com o projeto MVC em execução, vá no seu navegador e informe a URL: `https://localhost:7173/`;
 * Pronto! O projeto estará rodando por completo;
 
-### Exemplo de Uso
+### Exemplo de uso
 
 Abaixo está um gif mostrando o uso do sistema.
 
@@ -48,10 +48,13 @@ Abaixo está um gif mostrando o uso do sistema.
 
 ## Observações
 
+### Swagger
 O projeto WebAPI já vem incluso com uma documentação swagger para utilização da API. Para ver a documentação, certifique-se de que o projeto WebAPI esteja em execução. Logo em seguida acesse a URL: `https://localhost:7296/swagger`.
 
+### Script do Banco de Dados
 Para saber como está estruturado o banco de dados, deixei o arquivo com os comandos que executei para criação da database dentro do diretório `./.github/database.sql`. Lembrando que este arquivo não está sendo utilizado no projeto, apenas para melhor compreensão dele.
 
+### Certificado SSL
 Caso você esteja tendo erro com certificado SSL no projeto, será necessário executar alguns comandos para ativar o certificado SSL para desenvolvimento:
 
 * No Windows:

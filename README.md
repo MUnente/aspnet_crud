@@ -10,12 +10,13 @@ As principais tecnologias utilizadas neste projeto foram:
 * ASP.NET Web API
 * Bootstrap
 * X.PagedList
-* SQL Server (RDS Instance)
+* SQL Server
 
 ## Como funciona o projeto?
 
-### Instalação
+### 1. Instalação
 
+#### 1.1. Projeto
 Primeiro é necessário verificar se está instalado a última versão do dotnet Runtime e do SDK na máquina (no momento em que este projeto foi criado, foi utilizado a versão 6.0).
 
 Caso não tenha instalado, recomendo dar uma olhada na documentação feita pela própria Microsoft para realizar a instalação:
@@ -27,7 +28,11 @@ Assim que o Runtime e o SDK estiverem instalados, faça um clone do repositório
 
 O projeto é dividido em duas pastas principais: WebAPI e o WebMVC. Ambos são projetos separados com configurações próprias, mas que se comunicam através de rotas (como um microservice).
 
-### Execução
+#### 1.2. Banco de Dados
+
+Para questão do banco de dados, antes estive utilizando uma Instância RDS, porém voltei atrás atualizei o código para utilizar uma Instância local. Enfrentei um pouco de dificuldades de executar o SQL Server direto no Ubuntu, portanto no meu cenário em específico criei um container no docker com o banco e criei a database com os comandos presentes no diretório `./.github/database.sql`. Caso tenham interessem em reproduzir o meu cenário, estou deixando uma documentação que segui, da própria Microsoft, para criação de um container docker rodando o SQL Server no Linux: [Quickstart: Run SQL Server Linux container images with Docker](https://learn.microsoft.com/en-us/sql/linux/quickstart-install-connect-docker). Após ter configurado o banco, verifiquem se a string de conexão, presente em `./WebAPI/Models/Connection.cs`, está batendo com as configurações feitas no docker. Um detalhe importânte: sempre verifiquem se seu container está com o status "Up". Em caso ele venha estar como "Exited", basta apenas rodar o comando `sudo docker start <CONTAINER NAME>` que voltará a ligar.
+
+### 2. Execução
 
 * Entre no diretório do projeto através do terminal/prompt;
 * Entre no diretório WebAPI e execute: `dotnet run`;
